@@ -158,6 +158,7 @@ def destinations(request):
             'images': [image.image for image in destination.images.all()],
             'name': destination.name,
             'description': destination.description,
+            'history': destination.history,
             'rating': destination.rating,
             'comments': [{
                 'id': comment.id,
@@ -184,6 +185,7 @@ def destinations_by_category(request, category):
             'images': [image.image for image in destination.images.all()],
             'name': destination.name,
             'description': destination.description,
+            'history': destination.history,
             'rating': destination.rating,
             'comments': [{
                 'id': comment.id,
