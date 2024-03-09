@@ -12,6 +12,7 @@ urlpatterns = [
     path('hotels/', hotels),
     path('hotels/categories/', hotel_category),
     path('hotels/<category>', hotels_by_category),
+    path('comment/<address>/<int:id>/<user>/<int:rating>', comment),
     path('login/', login),
     path('register/', register),
 ]

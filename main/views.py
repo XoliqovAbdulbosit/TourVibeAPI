@@ -205,6 +205,19 @@ def destinations_by_category(request, category):
 
 
 @csrf_exempt
+def comment(request, address, id, user, rating):
+    cmnt = Comment.objects.create(author=user, rating=rating, text=request.body.decode('utf-8').strip('"'))
+    match address:
+        case "destination":
+            Destination.objects.get(pk=id).comments.add(cmnt)
+        case "food":
+            Food.objects.get(pk=id).comments.add(cmnt)
+        case "hotel":
+            Hotel.objects.get(pk=id).comments.add(cmnt)
+    return JsonResponse("Success", safe=False)
+
+
+@csrf_exempt
 def login(request):
     email = request.POST.get('email', None)
     password = request.POST.get('password', None)
@@ -222,8 +235,7 @@ def register(request):
     name = request.POST.get('name', None)
     country = request.POST.get('country', None)
     try:
-        profile = Profile.objects.create(email=email, password=password, name=name, country=country)
-        profile.save()
+        Profile.objects.create(email=email, password=password, name=name, country=country)
         return JsonResponse("Success", safe=False)
     except Exception as e:
         return JsonResponse("Fail", safe=False)
