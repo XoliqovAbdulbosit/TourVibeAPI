@@ -204,6 +204,40 @@ def destinations_by_category(request, category):
     return JsonResponse(destinations, safe=False)
 
 
+def destination_state(request):
+    categories = set()
+    for destination in Destination.objects.all():
+        categories.add(destination.locatedState)
+    return JsonResponse(list(categories), safe=False)
+
+
+def destinations_by_state(request, state):
+    destinations = [
+        {
+            'id': destination.pk,
+            'mainImage': destination.mainImage,
+            'images': [image.image for image in destination.images.all()],
+            'name': destination.name,
+            'description': destination.description,
+            'history': destination.history,
+            'rating': destination.rating,
+            'comments': [{
+                'id': comment.id,
+                'author': comment.author,
+                'date': comment.date.strftime("%d/%m/%Y %H:%M:%S"),
+                'rating': comment.rating,
+                'text': comment.text,
+            } for comment in destination.comments.all()],
+            'category': destination.category.split(),
+            'locatedCountry': destination.locatedCountry,
+            'locatedState': destination.locatedState,
+            'overViewVideo': destination.overViewVideo,
+        }
+        for destination in Destination.objects.filter(locatedState=state)
+    ]
+    return JsonResponse(destinations, safe=False)
+
+
 @csrf_exempt
 def comment(request, address, id, user, rating):
     cmnt = Comment.objects.create(author=user, rating=rating, text=request.body.decode('utf-8').strip('"'))
