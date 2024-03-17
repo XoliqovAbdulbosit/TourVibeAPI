@@ -164,7 +164,19 @@ def restaurants(request):
             'name': restaurant.name,
             'price': restaurant.price,
             'caloryInfo': restaurant.caloryInfo,
-            'rating': restaurant.rating,
+            'comments': [{
+                'id': comment.id,
+                'author': {
+                    'name': comment.author.name,
+                    'email': comment.author.email,
+                    'country': comment.author.country,
+                    'image': comment.author.image,
+                },
+                'date': comment.date.strftime("%d/%m/%Y %H:%M:%S"),
+                'rating': comment.rating,
+                'text': comment.text,
+            } for comment in restaurant.comments.all()],
+            'rating': round(mean([float(rating) for rating in restaurant.comments.values_list('rating', flat=True)]), 1),
             'overViewVideo': restaurant.overViewVideo,
         }
         for restaurant in Restaurant.objects.all()
@@ -293,6 +305,8 @@ def comment(request, address, id, user, rating):
             Food.objects.get(pk=id).comments.add(cmnt)
         case "hotel":
             Hotel.objects.get(pk=id).comments.add(cmnt)
+        case "restaurant":
+            Restaurant.objects.get(pk=id).comments.add(cmnt)
     return JsonResponse("Success", safe=False)
 
 
