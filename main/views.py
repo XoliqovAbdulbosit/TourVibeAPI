@@ -45,7 +45,6 @@ def foods(request):
                 'name': restaurant.name,
                 'price': restaurant.price,
                 'caloryInfo': restaurant.caloryInfo,
-                'rating': restaurant.rating,
                 'overViewVideo': restaurant.overViewVideo,
             } for restaurant in food.restaurant.all()],
         }
@@ -82,7 +81,6 @@ def foods_by_category(request, category):
                 'name': restaurant.name,
                 'price': restaurant.price,
                 'caloryInfo': restaurant.caloryInfo,
-                'rating': restaurant.rating,
                 'overViewVideo': restaurant.overViewVideo,
             } for restaurant in food.restaurant.all()],
         }
