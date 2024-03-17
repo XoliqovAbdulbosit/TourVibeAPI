@@ -42,6 +42,7 @@ class Restaurant(models.Model):
     mainImage = models.CharField(max_length=120)
     name = models.CharField(max_length=40)
     price = models.CharField(max_length=20)
+    rating = models.DecimalField(max_digits=2, decimal_places=1)
     caloryInfo = models.CharField(max_length=20)
     latitude = models.DecimalField(max_digits=9, decimal_places=6)
     longitude = models.DecimalField(max_digits=9, decimal_places=6)
