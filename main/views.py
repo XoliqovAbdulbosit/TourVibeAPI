@@ -3,7 +3,7 @@ from .models import *
 from django.views.decorators.csrf import csrf_exempt
 
 
-def mean(lst):
+def solve(lst):
     if len(lst) == 0:
         return 0
     return sum(lst) / len(lst)
@@ -25,7 +25,7 @@ def foods(request):
             'images': [image.image for image in food.images.all()],
             'name': food.name,
             'description': food.description,
-            'rating': round(mean([float(rating) for rating in food.comments.values_list('rating', flat=True)]), 1),
+            'rating': round(solve([float(rating) for rating in food.comments.values_list('rating', flat=True)]), 1),
             'comments': [{
                 'id': comment.id,
                 'author': {
@@ -62,7 +62,7 @@ def foods_by_category(request, category):
             'images': [image.image for image in food.images.all()],
             'name': food.name,
             'description': food.description,
-            'rating': round(mean([float(rating) for rating in food.comments.values_list('rating', flat=True)]), 1),
+            'rating': round(solve([float(rating) for rating in food.comments.values_list('rating', flat=True)]), 1),
             'comments': [{
                 'id': comment.id,
                 'author': {
@@ -99,7 +99,7 @@ def hotels(request):
             'name': hotel.name,
             'images': [image.image for image in hotel.images.all()],
             'description': hotel.description,
-            'rating': round(mean([float(rating) for rating in hotel.comments.values_list('rating', flat=True)]), 1),
+            'rating': round(solve([float(rating) for rating in hotel.comments.values_list('rating', flat=True)]), 1),
             'comments': [{
                 'id': comment.id,
                 'author': {
@@ -135,7 +135,7 @@ def hotels_by_category(request, category):
             'name': hotel.name,
             'images': [image.image for image in hotel.images.all()],
             'description': hotel.description,
-            'rating': round(mean([float(rating) for rating in hotel.comments.values_list('rating', flat=True)]), 1),
+            'rating': round(solve([float(rating) for rating in hotel.comments.values_list('rating', flat=True)]), 1),
             'comments': [{
                 'id': comment.id,
                 'author': {
@@ -176,7 +176,7 @@ def restaurants(request):
                 'rating': comment.rating,
                 'text': comment.text,
             } for comment in restaurant.comments.all()],
-            'rating': round(mean([float(rating) for rating in restaurant.comments.values_list('rating', flat=True)]), 1),
+            'rating': round(solve([float(rating) for rating in restaurant.comments.values_list('rating', flat=True)]), 1),
             'overViewVideo': restaurant.overViewVideo,
         }
         for restaurant in Restaurant.objects.all()
@@ -200,7 +200,7 @@ def destinations(request):
             'name': destination.name,
             'description': destination.description,
             'history': destination.history,
-            'ratings': round(mean([float(rating) for rating in destination.comments.values_list('rating', flat=True)]), 1),
+            'ratings': round(solve([float(rating) for rating in destination.comments.values_list('rating', flat=True)]), 1),
             'comments': [{
                 'id': comment.id,
                 'author': {
@@ -232,7 +232,7 @@ def destinations_by_category(request, category):
             'name': destination.name,
             'description': destination.description,
             'history': destination.history,
-            'rating': round(mean([float(rating) for rating in destination.comments.values_list('rating', flat=True)]), 1),
+            'rating': round(solve([float(rating) for rating in destination.comments.values_list('rating', flat=True)]), 1),
             'comments': [{
                 'id': comment.id,
                 'author': {
@@ -271,7 +271,7 @@ def destinations_by_state(request, state):
             'name': destination.name,
             'description': destination.description,
             'history': destination.history,
-            'rating': round(mean([float(rating) for rating in destination.comments.values_list('rating', flat=True)]), 1),
+            'rating': round(solve([float(rating) for rating in destination.comments.values_list('rating', flat=True)]), 1),
             'comments': [{
                 'id': comment.id,
                 'author': {
