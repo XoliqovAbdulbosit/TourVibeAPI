@@ -22,7 +22,12 @@ def foods(request):
             'rating': food.rating,
             'comments': [{
                 'id': comment.id,
-                'author': comment.author,
+                'author': {
+                    'name': comment.author.name,
+                    'email': comment.author.email,
+                    'country': comment.author.country,
+                    'image': comment.author.image,
+                },
                 'date': comment.date.strftime("%d/%m/%Y %H:%M:%S"),
                 'rating': comment.rating,
                 'text': comment.text,
@@ -35,6 +40,7 @@ def foods(request):
                 'price': restaurant.price,
                 'caloryInfo': restaurant.caloryInfo,
                 'rating': restaurant.rating,
+                'overViewVideo': restaurant.overViewVideo,
             } for restaurant in food.restaurant.all()],
         }
         for food in Food.objects.all()
@@ -53,7 +59,12 @@ def foods_by_category(request, category):
             'rating': food.rating,
             'comments': [{
                 'id': comment.id,
-                'author': comment.author,
+                'author': {
+                    'name': comment.author.name,
+                    'email': comment.author.email,
+                    'country': comment.author.country,
+                    'image': comment.author.image,
+                },
                 'date': comment.date.strftime("%d/%m/%Y %H:%M:%S"),
                 'rating': comment.rating,
                 'text': comment.text,
@@ -66,6 +77,7 @@ def foods_by_category(request, category):
                 'price': restaurant.price,
                 'caloryInfo': restaurant.caloryInfo,
                 'rating': restaurant.rating,
+                'overViewVideo': restaurant.overViewVideo,
             } for restaurant in food.restaurant.all()],
         }
         for food in Food.objects.filter(category__contains=category)
@@ -84,7 +96,12 @@ def hotels(request):
             'rating': hotel.rating,
             'comments': [{
                 'id': comment.id,
-                'author': comment.author,
+                'author': {
+                    'name': comment.author.name,
+                    'email': comment.author.email,
+                    'country': comment.author.country,
+                    'image': comment.author.image,
+                },
                 'date': comment.date.strftime("%d/%m/%Y %H:%M:%S"),
                 'rating': comment.rating,
                 'text': comment.text,
@@ -115,7 +132,12 @@ def hotels_by_category(request, category):
             'rating': hotel.rating,
             'comments': [{
                 'id': comment.id,
-                'author': comment.author,
+                'author': {
+                    'name': comment.author.name,
+                    'email': comment.author.email,
+                    'country': comment.author.country,
+                    'image': comment.author.image,
+                },
                 'date': comment.date.strftime("%d/%m/%Y %H:%M:%S"),
                 'rating': comment.rating,
                 'text': comment.text,
@@ -162,7 +184,12 @@ def destinations(request):
             'rating': destination.rating,
             'comments': [{
                 'id': comment.id,
-                'author': comment.author,
+                'author': {
+                    'name': comment.author.name,
+                    'email': comment.author.email,
+                    'country': comment.author.country,
+                    'image': comment.author.image,
+                },
                 'date': comment.date.strftime("%d/%m/%Y %H:%M:%S"),
                 'rating': comment.rating,
                 'text': comment.text,
@@ -189,7 +216,12 @@ def destinations_by_category(request, category):
             'rating': destination.rating,
             'comments': [{
                 'id': comment.id,
-                'author': comment.author,
+                'author': {
+                    'name': comment.author.name,
+                    'email': comment.author.email,
+                    'country': comment.author.country,
+                    'image': comment.author.image,
+                },
                 'date': comment.date.strftime("%d/%m/%Y %H:%M:%S"),
                 'rating': comment.rating,
                 'text': comment.text,
@@ -223,7 +255,12 @@ def destinations_by_state(request, state):
             'rating': destination.rating,
             'comments': [{
                 'id': comment.id,
-                'author': comment.author,
+                'author': {
+                    'name': comment.author.name,
+                    'email': comment.author.email,
+                    'country': comment.author.country,
+                    'image': comment.author.image,
+                },
                 'date': comment.date.strftime("%d/%m/%Y %H:%M:%S"),
                 'rating': comment.rating,
                 'text': comment.text,
@@ -240,7 +277,8 @@ def destinations_by_state(request, state):
 
 @csrf_exempt
 def comment(request, address, id, user, rating):
-    cmnt = Comment.objects.create(author=user, rating=rating, text=request.body.decode('utf-8').strip('"'))
+    cmnt = Comment.objects.create(author=Profile.objects.get(name=user), rating=float(rating),
+                                  text=request.body.decode('utf-8').strip('"'))
     match address:
         case "destination":
             Destination.objects.get(pk=id).comments.add(cmnt)
@@ -273,4 +311,3 @@ def register(request):
         return JsonResponse("Success", safe=False)
     except Exception as e:
         return JsonResponse("Fail", safe=False)
-

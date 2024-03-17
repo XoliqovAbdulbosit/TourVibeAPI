@@ -11,7 +11,7 @@ class Image(models.Model):
 
 
 class Comment(models.Model):
-    author = models.CharField(max_length=40)
+    author = models.ForeignKey('Profile', on_delete=models.PROTECT)
     date = models.DateTimeField(auto_now_add=True)
     rating = models.DecimalField(max_digits=2, decimal_places=1)
     text = models.TextField()
@@ -47,6 +47,7 @@ class Restaurant(models.Model):
     latitude = models.DecimalField(max_digits=8, decimal_places=6)
     longitude = models.DecimalField(max_digits=8, decimal_places=6)
     rating = models.DecimalField(max_digits=2, decimal_places=1)
+    overViewVideo = models.CharField(max_length=120, blank=True)
 
     def __str__(self):
         return self.name
