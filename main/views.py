@@ -1,6 +1,7 @@
 from django.http import JsonResponse
 from .models import *
 from django.views.decorators.csrf import csrf_exempt
+from statistics import mean
 
 
 # Create your views here.
@@ -19,7 +20,7 @@ def foods(request):
             'images': [image.image for image in food.images.all()],
             'name': food.name,
             'description': food.description,
-            'rating': food.rating,
+            'rating': round(mean([float(rating) for rating in food.comments.values_list('rating', flat=True)]), 1),
             'comments': [{
                 'id': comment.id,
                 'author': {
@@ -56,7 +57,7 @@ def foods_by_category(request, category):
             'images': [image.image for image in food.images.all()],
             'name': food.name,
             'description': food.description,
-            'rating': food.rating,
+            'rating': round(mean([float(rating) for rating in food.comments.values_list('rating', flat=True)]), 1),
             'comments': [{
                 'id': comment.id,
                 'author': {
@@ -93,7 +94,7 @@ def hotels(request):
             'name': hotel.name,
             'images': [image.image for image in hotel.images.all()],
             'description': hotel.description,
-            'rating': hotel.rating,
+            'rating': round(mean([float(rating) for rating in hotel.comments.values_list('rating', flat=True)]), 1),
             'comments': [{
                 'id': comment.id,
                 'author': {
@@ -129,7 +130,7 @@ def hotels_by_category(request, category):
             'name': hotel.name,
             'images': [image.image for image in hotel.images.all()],
             'description': hotel.description,
-            'rating': hotel.rating,
+            'rating': round(mean([float(rating) for rating in hotel.comments.values_list('rating', flat=True)]), 1),
             'comments': [{
                 'id': comment.id,
                 'author': {
@@ -159,6 +160,7 @@ def restaurants(request):
             'price': restaurant.price,
             'caloryInfo': restaurant.caloryInfo,
             'rating': restaurant.rating,
+            'overViewVideo': restaurant.overViewVideo,
         }
         for restaurant in Restaurant.objects.all()
     ]
@@ -181,7 +183,7 @@ def destinations(request):
             'name': destination.name,
             'description': destination.description,
             'history': destination.history,
-            'rating': destination.rating,
+            'ratings': round(mean([float(rating) for rating in destination.comments.values_list('rating', flat=True)]), 1),
             'comments': [{
                 'id': comment.id,
                 'author': {
@@ -213,7 +215,7 @@ def destinations_by_category(request, category):
             'name': destination.name,
             'description': destination.description,
             'history': destination.history,
-            'rating': destination.rating,
+            'rating': round(mean([float(rating) for rating in destination.comments.values_list('rating', flat=True)]), 1),
             'comments': [{
                 'id': comment.id,
                 'author': {
@@ -252,7 +254,7 @@ def destinations_by_state(request, state):
             'name': destination.name,
             'description': destination.description,
             'history': destination.history,
-            'rating': destination.rating,
+            'rating': round(mean([float(rating) for rating in destination.comments.values_list('rating', flat=True)]), 1),
             'comments': [{
                 'id': comment.id,
                 'author': {

@@ -26,7 +26,6 @@ class Destination(models.Model):
     name = models.CharField(max_length=40)
     description = models.TextField()
     history = models.TextField()
-    rating = models.DecimalField(max_digits=2, decimal_places=1)
     comments = models.ManyToManyField(Comment, blank=True)
     category = models.CharField(max_length=20)
     latitude = models.DecimalField(max_digits=8, decimal_places=6)
@@ -46,7 +45,6 @@ class Restaurant(models.Model):
     caloryInfo = models.CharField(max_length=20)
     latitude = models.DecimalField(max_digits=8, decimal_places=6)
     longitude = models.DecimalField(max_digits=8, decimal_places=6)
-    rating = models.DecimalField(max_digits=2, decimal_places=1)
     overViewVideo = models.CharField(max_length=120, blank=True)
 
     def __str__(self):
@@ -58,7 +56,6 @@ class Food(models.Model):
     images = models.ManyToManyField(Image)
     name = models.CharField(max_length=40)
     description = models.TextField()
-    rating = models.DecimalField(max_digits=2, decimal_places=1)
     comments = models.ManyToManyField(Comment, blank=True)
     category = models.CharField(max_length=20)
     locatedCountry = models.CharField(max_length=20)
@@ -76,7 +73,6 @@ class Hotel(models.Model):
     description = models.TextField()
     latitude = models.DecimalField(max_digits=8, decimal_places=6)
     longitude = models.DecimalField(max_digits=8, decimal_places=6)
-    rating = models.DecimalField(max_digits=2, decimal_places=1)
     comments = models.ManyToManyField(Comment, blank=True)
     locatedCountry = models.CharField(max_length=20)
     locatedState = models.CharField(max_length=20)
