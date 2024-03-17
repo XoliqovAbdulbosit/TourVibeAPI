@@ -289,10 +289,7 @@ def comment(request, address, id, user, rating):
     return JsonResponse("Success", safe=False)
 
 
-@csrf_exempt
-def login(request):
-    email = request.POST.get('email', None)
-    password = request.POST.get('password', None)
+def login(request, email, password):
     try:
         Profile.objects.get(email=email, password=password)
         return JsonResponse("Success", safe=False)
@@ -300,12 +297,7 @@ def login(request):
         return JsonResponse("Fail", safe=False)
 
 
-@csrf_exempt
-def register(request):
-    email = request.POST.get('email', None)
-    password = request.POST.get('password', None)
-    name = request.POST.get('name', None)
-    country = request.POST.get('country', None)
+def register(request, email, password, name, country):
     try:
         Profile.objects.create(email=email, password=password, name=name, country=country)
         return JsonResponse("Success", safe=False)

@@ -15,6 +15,6 @@ urlpatterns = [
     path('hotels/categories/', hotel_category),
     path('hotels/<category>', hotels_by_category),
     path('comment/<address>/<int:id>/<user>/<rating>', comment),
-    path('login/', login),
-    path('register/', register),
+    path('login/<email>/<password>', login),
+    path('register/<email>/<password>/<name>/<country>', register),
 ]
