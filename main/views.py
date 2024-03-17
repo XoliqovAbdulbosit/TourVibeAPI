@@ -1,7 +1,12 @@
 from django.http import JsonResponse
 from .models import *
 from django.views.decorators.csrf import csrf_exempt
-from statistics import mean
+
+
+def mean(lst):
+    if len(lst) == 0:
+        return 0
+    return sum(lst) / len(lst)
 
 
 # Create your views here.
@@ -20,7 +25,7 @@ def foods(request):
             'images': [image.image for image in food.images.all()],
             'name': food.name,
             'description': food.description,
-            'rating': round(mean([float(rating) for rating in food.comments.values_list('rating', flat=True)]), 1) if food.comments else 0,
+            'rating': round(mean([float(rating) for rating in food.comments.values_list('rating', flat=True)]), 1),
             'comments': [{
                 'id': comment.id,
                 'author': {
@@ -57,7 +62,7 @@ def foods_by_category(request, category):
             'images': [image.image for image in food.images.all()],
             'name': food.name,
             'description': food.description,
-            'rating': round(mean([float(rating) for rating in food.comments.values_list('rating', flat=True)]), 1) if food.comments else 0,
+            'rating': round(mean([float(rating) for rating in food.comments.values_list('rating', flat=True)]), 1),
             'comments': [{
                 'id': comment.id,
                 'author': {
@@ -94,7 +99,7 @@ def hotels(request):
             'name': hotel.name,
             'images': [image.image for image in hotel.images.all()],
             'description': hotel.description,
-            'rating': round(mean([float(rating) for rating in hotel.comments.values_list('rating', flat=True)]), 1) if hotel.comments else 0,
+            'rating': round(mean([float(rating) for rating in hotel.comments.values_list('rating', flat=True)]), 1),
             'comments': [{
                 'id': comment.id,
                 'author': {
@@ -130,7 +135,7 @@ def hotels_by_category(request, category):
             'name': hotel.name,
             'images': [image.image for image in hotel.images.all()],
             'description': hotel.description,
-            'rating': round(mean([float(rating) for rating in hotel.comments.values_list('rating', flat=True)]), 1) if hotel.comments else 0,
+            'rating': round(mean([float(rating) for rating in hotel.comments.values_list('rating', flat=True)]), 1),
             'comments': [{
                 'id': comment.id,
                 'author': {
@@ -183,7 +188,7 @@ def destinations(request):
             'name': destination.name,
             'description': destination.description,
             'history': destination.history,
-            'ratings': round(mean([float(rating) for rating in destination.comments.values_list('rating', flat=True)]), 1) if destination.comments else 0,
+            'ratings': round(mean([float(rating) for rating in destination.comments.values_list('rating', flat=True)]), 1),
             'comments': [{
                 'id': comment.id,
                 'author': {
@@ -215,7 +220,7 @@ def destinations_by_category(request, category):
             'name': destination.name,
             'description': destination.description,
             'history': destination.history,
-            'rating': round(mean([float(rating) for rating in destination.comments.values_list('rating', flat=True)]), 1) if destination.comments else 0,
+            'rating': round(mean([float(rating) for rating in destination.comments.values_list('rating', flat=True)]), 1),
             'comments': [{
                 'id': comment.id,
                 'author': {
@@ -254,7 +259,7 @@ def destinations_by_state(request, state):
             'name': destination.name,
             'description': destination.description,
             'history': destination.history,
-            'rating': round(mean([float(rating) for rating in destination.comments.values_list('rating', flat=True)]), 1) if destination.comments else 0,
+            'rating': round(mean([float(rating) for rating in destination.comments.values_list('rating', flat=True)]), 1),
             'comments': [{
                 'id': comment.id,
                 'author': {
