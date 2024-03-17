@@ -17,7 +17,7 @@ class Comment(models.Model):
     text = models.TextField()
 
     def __str__(self):
-        return self.author
+        return self.author.name
 
 
 class Destination(models.Model):
