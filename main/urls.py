@@ -17,4 +17,5 @@ urlpatterns = [
     path('comment/<address>/<int:id>/<user>/<rating>', comment),
     path('login/<email>/<password>', login),
     path('register/<email>/<password>/<name>/<country>', register),
+    path('edit/<int:user_id>/<email>/<password>/<name>/<country>/<number>', edit),
 ]

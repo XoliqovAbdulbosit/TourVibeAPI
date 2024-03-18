@@ -328,15 +328,69 @@ def comment(request, address, id, user, rating):
 
 def login(request, email, password):
     try:
-        Profile.objects.get(email=email, password=password)
-        return JsonResponse("Success", safe=False)
-    except:
-        return JsonResponse("Fail", safe=False)
+        profile = Profile.objects.get(email=email, password=password)
+        return JsonResponse({
+            'id': profile.pk,
+            'email': profile.email,
+            'name': profile.name,
+            'password': profile.password,
+            'country': profile.country,
+            'number': profile.number,
+        }, safe=False)
+    except Exception as e:
+        return JsonResponse({
+            'id': -1,
+            'email': "",
+            'name': "",
+            'password': "",
+            'country': "",
+            'number': "",
+        }, safe=False)
+
+
+def edit(request, user_id, email, password, name, country, number):
+    try:
+        profile = Profile.objects.get(pk=user_id)
+        profile.email = email
+        profile.password = password
+        profile.name = name
+        profile.country = country
+        profile.number = number
+        profile.save()
+        return JsonResponse({
+            'id': profile.pk,
+            'email': profile.email,
+            'name': profile.name,
+            'password': profile.password,
+            'country': profile.country,
+            'number': profile.number,
+        }, safe=False)
+    except Exception as e:
+        return JsonResponse({
+            'id': -1,
+            'email': "",
+            'name': "",
+            'password': "",
+            'country': "",
+            'number': "",
+        }, safe=False)
 
 
 def register(request, email, password, name, country):
     try:
-        Profile.objects.create(email=email, password=password, name=name, country=country)
-        return JsonResponse("Success", safe=False)
+        profile = Profile.objects.create(email=email, password=password, name=name, country=country)
+        return JsonResponse({
+            'id': profile.pk,
+            'email': profile.email,
+            'name': profile.name,
+            'password': profile.password,
+            'country': profile.country,
+        }, safe=False)
     except Exception as e:
-        return JsonResponse("Fail", safe=False)
+        return JsonResponse({
+            'id': -1,
+            'email': "",
+            'name': "",
+            'password': "",
+            'country': "",
+        }, safe=False)
