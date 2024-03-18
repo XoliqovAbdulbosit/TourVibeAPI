@@ -47,7 +47,7 @@ def foods(request):
                 'caloryInfo': restaurant.caloryInfo,
                 'overViewVideo': restaurant.overViewVideo,
                 'latitude': restaurant.latitude,
-                'longitude': restaurant.latitude,
+                'longitude': restaurant.longitude,
             } for restaurant in food.restaurant.all()],
         }
         for food in Food.objects.all()
@@ -85,7 +85,7 @@ def foods_by_category(request, category):
                 'caloryInfo': restaurant.caloryInfo,
                 'overViewVideo': restaurant.overViewVideo,
                 'latitude': restaurant.latitude,
-                'longitude': restaurant.latitude,
+                'longitude': restaurant.longitude,
             } for restaurant in food.restaurant.all()],
         }
         for food in Food.objects.filter(category__contains=category)
@@ -117,7 +117,7 @@ def hotels(request):
             'locatedCountry': hotel.locatedCountry,
             'locatedState': hotel.locatedState,
             'latitude': hotel.latitude,
-            'longitude': hotel.latitude,
+            'longitude': hotel.longitude,
             'price': hotel.price,
         }
         for hotel in Hotel.objects.all()
@@ -156,7 +156,7 @@ def hotels_by_category(request, category):
             'locatedCountry': hotel.locatedCountry,
             'locatedState': hotel.locatedState,
             'latitude': hotel.latitude,
-            'longitude': hotel.latitude,
+            'longitude': hotel.longitude,
             'price': hotel.price,
         }
         for hotel in Hotel.objects.filter(locatedCountry=category)
@@ -187,7 +187,7 @@ def restaurants(request):
             'rating': round(solve([float(rating) for rating in restaurant.comments.values_list('rating', flat=True)]), 1),
             'overViewVideo': restaurant.overViewVideo,
             'latitude': restaurant.latitude,
-            'longitude': restaurant.latitude,
+            'longitude': restaurant.longitude,
         }
         for restaurant in Restaurant.objects.all()
     ]
@@ -228,7 +228,7 @@ def destinations(request):
             'locatedState': destination.locatedState,
             'overViewVideo': destination.overViewVideo,
             'latitude': destination.latitude,
-            'longitude': destination.latitude,
+            'longitude': destination.longitude,
         }
         for destination in Destination.objects.all()
     ]
@@ -262,7 +262,7 @@ def destinations_by_category(request, category):
             'locatedState': destination.locatedState,
             'overViewVideo': destination.overViewVideo,
             'latitude': destination.latitude,
-            'longitude': destination.latitude,
+            'longitude': destination.longitude,
         }
         for destination in Destination.objects.filter(category__contains=category)
     ]
@@ -303,7 +303,7 @@ def destinations_by_state(request, state):
             'locatedState': destination.locatedState,
             'overViewVideo': destination.overViewVideo,
             'latitude': destination.latitude,
-            'longitude': destination.latitude,
+            'longitude': destination.longitude,
         }
         for destination in Destination.objects.filter(locatedState=state)
     ]
