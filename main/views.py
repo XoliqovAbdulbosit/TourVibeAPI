@@ -46,6 +46,8 @@ def foods(request):
                 'price': restaurant.price,
                 'caloryInfo': restaurant.caloryInfo,
                 'overViewVideo': restaurant.overViewVideo,
+                'latitude': restaurant.latitude,
+                'longitude': restaurant.latitude,
             } for restaurant in food.restaurant.all()],
         }
         for food in Food.objects.all()
@@ -82,6 +84,8 @@ def foods_by_category(request, category):
                 'price': restaurant.price,
                 'caloryInfo': restaurant.caloryInfo,
                 'overViewVideo': restaurant.overViewVideo,
+                'latitude': restaurant.latitude,
+                'longitude': restaurant.latitude,
             } for restaurant in food.restaurant.all()],
         }
         for food in Food.objects.filter(category__contains=category)
@@ -112,6 +116,9 @@ def hotels(request):
             } for comment in hotel.comments.all()],
             'locatedCountry': hotel.locatedCountry,
             'locatedState': hotel.locatedState,
+            'latitude': hotel.latitude,
+            'longitude': hotel.latitude,
+            'price': hotel.price,
         }
         for hotel in Hotel.objects.all()
     ]
@@ -148,6 +155,9 @@ def hotels_by_category(request, category):
             } for comment in hotel.comments.all()],
             'locatedCountry': hotel.locatedCountry,
             'locatedState': hotel.locatedState,
+            'latitude': hotel.latitude,
+            'longitude': hotel.latitude,
+            'price': hotel.price,
         }
         for hotel in Hotel.objects.filter(locatedCountry=category)
     ]
@@ -176,6 +186,8 @@ def restaurants(request):
             } for comment in restaurant.comments.all()],
             'rating': round(solve([float(rating) for rating in restaurant.comments.values_list('rating', flat=True)]), 1),
             'overViewVideo': restaurant.overViewVideo,
+            'latitude': restaurant.latitude,
+            'longitude': restaurant.latitude,
         }
         for restaurant in Restaurant.objects.all()
     ]
@@ -215,6 +227,8 @@ def destinations(request):
             'locatedCountry': destination.locatedCountry,
             'locatedState': destination.locatedState,
             'overViewVideo': destination.overViewVideo,
+            'latitude': destination.latitude,
+            'longitude': destination.latitude,
         }
         for destination in Destination.objects.all()
     ]
@@ -247,6 +261,8 @@ def destinations_by_category(request, category):
             'locatedCountry': destination.locatedCountry,
             'locatedState': destination.locatedState,
             'overViewVideo': destination.overViewVideo,
+            'latitude': destination.latitude,
+            'longitude': destination.latitude,
         }
         for destination in Destination.objects.filter(category__contains=category)
     ]
@@ -286,6 +302,8 @@ def destinations_by_state(request, state):
             'locatedCountry': destination.locatedCountry,
             'locatedState': destination.locatedState,
             'overViewVideo': destination.overViewVideo,
+            'latitude': destination.latitude,
+            'longitude': destination.latitude,
         }
         for destination in Destination.objects.filter(locatedState=state)
     ]

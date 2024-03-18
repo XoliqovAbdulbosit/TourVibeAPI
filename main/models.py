@@ -4,7 +4,7 @@ from django.db import models
 # Create your models here.
 class Image(models.Model):
     name = models.CharField(max_length=40)
-    image = models.CharField(max_length=120)
+    image = models.CharField(max_length=240)
 
     def __str__(self):
         return self.name
@@ -21,7 +21,7 @@ class Comment(models.Model):
 
 
 class Destination(models.Model):
-    mainImage = models.CharField(max_length=120)
+    mainImage = models.CharField(max_length=240)
     images = models.ManyToManyField(Image)
     name = models.CharField(max_length=40)
     description = models.TextField()
@@ -32,28 +32,28 @@ class Destination(models.Model):
     longitude = models.DecimalField(max_digits=9, decimal_places=6)
     locatedCountry = models.CharField(max_length=20)
     locatedState = models.CharField(max_length=20)
-    overViewVideo = models.CharField(max_length=120)
+    overViewVideo = models.CharField(max_length=240)
 
     def __str__(self):
         return self.name
 
 
 class Restaurant(models.Model):
-    mainImage = models.CharField(max_length=120)
+    mainImage = models.CharField(max_length=240)
     name = models.CharField(max_length=40)
     price = models.CharField(max_length=20)
     comments = models.ManyToManyField(Comment, blank=True)
     caloryInfo = models.CharField(max_length=20)
     latitude = models.DecimalField(max_digits=9, decimal_places=6)
     longitude = models.DecimalField(max_digits=9, decimal_places=6)
-    overViewVideo = models.CharField(max_length=120, blank=True)
+    overViewVideo = models.CharField(max_length=240, blank=True)
 
     def __str__(self):
         return self.name
 
 
 class Food(models.Model):
-    mainImage = models.CharField(max_length=120)
+    mainImage = models.CharField(max_length=240)
     images = models.ManyToManyField(Image)
     name = models.CharField(max_length=40)
     description = models.TextField()
@@ -68,7 +68,7 @@ class Food(models.Model):
 
 
 class Hotel(models.Model):
-    mainImage = models.CharField(max_length=120)
+    mainImage = models.CharField(max_length=240)
     name = models.CharField(max_length=40)
     images = models.ManyToManyField(Image)
     description = models.TextField()
@@ -77,6 +77,7 @@ class Hotel(models.Model):
     comments = models.ManyToManyField(Comment, blank=True)
     locatedCountry = models.CharField(max_length=20)
     locatedState = models.CharField(max_length=20)
+    price = models.IntegerField(default=0)
 
     def __str__(self):
         return self.name
@@ -87,7 +88,7 @@ class Profile(models.Model):
     email = models.CharField(max_length=40, unique=True)
     number = models.CharField(max_length=40, blank=True)
     country = models.CharField(max_length=20)
-    image = models.CharField(max_length=120, blank=True)
+    image = models.CharField(max_length=240, blank=True)
     savedDestinations = models.ManyToManyField(Destination, blank=True)
     savedFoods = models.ManyToManyField(Food, blank=True)
     password = models.CharField(max_length=25)
